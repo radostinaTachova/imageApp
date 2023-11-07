@@ -8,7 +8,7 @@
 import Foundation
 import Security
 
-class KeyChain {
+class KeyChainHelper {
     
     static func save(data: Data, service: String, account: String = "imageapp") -> Bool {
         let query: [String: Any] = [
@@ -18,6 +18,12 @@ class KeyChain {
             kSecValueData as String: data
         ]
         let status = SecItemAdd(query as CFDictionary, nil)
+
+        //TODO: remove
+        if status == errSecDuplicateItem {
+            print("RTC = duplicate item")
+        }
+        
         return status == errSecSuccess
     }
     
@@ -35,6 +41,21 @@ class KeyChain {
         guard status == errSecSuccess else { return nil }
         return (item as? Data)
     }
+    
+    
+    static func delete(service: String, account: String = "imageapp") -> Bool {
+        let query = [
+              kSecAttrService: service,
+              kSecAttrAccount: account,
+              kSecClass: kSecClassGenericPassword,
+          ] as CFDictionary
+        
+        let status = SecItemDelete(query as CFDictionary)
+        print("RTC == delete \(service) , success = \(status == errSecSuccess), notFound = \(status == errSecItemNotFound)")
+        return (status == errSecSuccess)
+        
+    }
+
     
     
 }

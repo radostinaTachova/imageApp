@@ -22,20 +22,31 @@ struct ContentView: View {
         //TODO: nevigation
         VStack {
             Text("ContentView")
+            Text("Hola \(viewModel.account?.userName ?? "sin user")")
             
-        }.sheet(isPresented: $isPresentWebView) {
+            Spacer()
+            
+            Button("Log out", action: {
+                viewModel.logOut()
+            })
+            
+        }.sheet(isPresented: $viewModel.showLoginView) {
             //Login
-            WebView(url: URL(string:url)!, showWebView: $isPresentWebView) { loginURL in
+            WebView(url: URL(string:url)!) { loginURL in
                 print("RTC = isLoggin \(loginURL)")
+                
+                viewModel.saveAccount(loginURL)
+                
             }
                     .ignoresSafeArea()
                     .navigationTitle("Login")
                     .navigationBarTitleDisplayMode(.inline)
+        }.onAppear {
+            viewModel.checkLogin()
         }
-       
     }
 }
 
 #Preview {
-    ContentView(viewModel: ImageViewModel())
+    ContentView(viewModel: ImageViewModel(ImgurRepository(), LoginRepositoryImpl()))
 }

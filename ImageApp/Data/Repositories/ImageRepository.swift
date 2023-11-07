@@ -1,5 +1,5 @@
 //
-//  ImgurRepository.swift
+//  LoginRepository.swift
 //  ImageApp
 //
 //  Created by Radostina Tachova Chergarska on 2/11/23.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct ImgurRepository: ImageRepository {
+protocol ImageRepository {
     
-    
+  
     
 }

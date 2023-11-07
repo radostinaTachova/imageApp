@@ -13,8 +13,6 @@ struct WebView: UIViewRepresentable {
    
     let url: URL
     
-    @Binding var showWebView: Bool //TODO: check
-    
     let loginURL: (String) -> () //TODO:
 
     func makeUIView(context: Context) -> WKWebView {
@@ -44,14 +42,12 @@ struct WebView: UIViewRepresentable {
                 let urlToMatch = "https://imageapp.com"
                 //TODO: add extension to check
                 if let urlStr = navigationAction.request.url?.absoluteString {
-                    print("RTC = \(urlStr)")
+                    print("RTC = webview coordinator = \(urlStr)")
                    
                     
                     if urlStr.contains(urlToMatch) {
-                        print("RTC = login")
-                        
+                        print("RTC = login YESS")
                         parent.loginURL(urlStr)
-                        parent.showWebView = false
                     }
                 }
                 decisionHandler(.allow)
