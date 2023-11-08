@@ -61,3 +61,12 @@ extension String {
     }
     
 }
+
+
+//MARK: Mapper
+
+extension ImageItem {
+    func toUIModel() -> ImageUIItem {
+        return ImageUIItem(id: self.id, url: self.link, tittle: self.title ?? "Sin título")
+    }
+}

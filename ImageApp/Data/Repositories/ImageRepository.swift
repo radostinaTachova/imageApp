@@ -6,9 +6,11 @@
 //
 
 import Foundation
+import Combine
 
 protocol ImageRepository {
     
+    func getImages() -> AnyPublisher<[ImageUIItem], Error>
   
     
 }

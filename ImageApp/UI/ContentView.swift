@@ -11,6 +11,8 @@ struct ContentView: View {
     
     @ObservedObject var viewModel: ImageViewModel
     
+    @ObservedObject var loginViewModel: LoginViewModel
+    
     //MARK: temporal
     @State private var isPresentWebView = true
     
@@ -22,31 +24,35 @@ struct ContentView: View {
         //TODO: nevigation
         VStack {
             Text("ContentView")
-            Text("Hola \(viewModel.account?.userName ?? "sin user")")
+            Text("Hola \(loginViewModel.account?.userName ?? "sin user")")
             
             Spacer()
             
             Button("Log out", action: {
-                viewModel.logOut()
+                loginViewModel.logOut()
             })
             
-        }.sheet(isPresented: $viewModel.showLoginView) {
+            Button("GET IMAGES: TEST") {
+                viewModel.getImages()
+            }
+            
+        }.sheet(isPresented: $loginViewModel.showLoginView) {
             //Login
             WebView(url: URL(string:url)!) { loginURL in
                 print("RTC = isLoggin \(loginURL)")
                 
-                viewModel.saveAccount(loginURL)
+                loginViewModel.saveAccount(loginURL)
                 
             }
                     .ignoresSafeArea()
                     .navigationTitle("Login")
                     .navigationBarTitleDisplayMode(.inline)
         }.onAppear {
-            viewModel.checkLogin()
+            loginViewModel.checkLogin()
         }
     }
 }
 
 #Preview {
-    ContentView(viewModel: ImageViewModel(ImgurRepository(), LoginRepositoryImpl()))
+    ContentView(viewModel: ImageViewModel(ImgurRepository()), loginViewModel: LoginViewModel(LoginRepositoryImpl()))
 }
