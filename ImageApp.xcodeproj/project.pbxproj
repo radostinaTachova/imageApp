@@ -29,6 +29,7 @@
 		1DECE3832AF3ECF4000CAB7F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DECE3822AF3ECF4000CAB7F /* Extensions.swift */; };
 		1DECE3852AF3EEB0000CAB7F /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DECE3842AF3EEB0000CAB7F /* Account.swift */; };
 		1DECE3872AF3F15A000CAB7F /* ExtensionsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DECE3862AF3F15A000CAB7F /* ExtensionsTests.swift */; };
+		1DF102BF2AFCF7590007D332 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DF102BE2AFCF7590007D332 /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		1DECE3822AF3ECF4000CAB7F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		1DECE3842AF3EEB0000CAB7F /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		1DECE3862AF3F15A000CAB7F /* ExtensionsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionsTests.swift; sourceTree = "<group>"; };
+		1DF102BE2AFCF7590007D332 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,7 +204,6 @@
 			children = (
 				1DECB6962AFB9AC100EAB2EB /* Models */,
 				1DEB590C2AFA33FF0030B2D3 /* Repositories */,
-				1DEB590D2AFA38A10030B2D3 /* ViewModel */,
 				1DECE3822AF3ECF4000CAB7F /* Extensions.swift */,
 				1DEA25B72AF4DF87000A728E /* KeyChainHelper.swift */,
 			);
@@ -212,10 +213,12 @@
 		1DECE37D2AF3AC85000CAB7F /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				1DEB590D2AFA38A10030B2D3 /* ViewModel */,
 				1DECB69B2AFBA70900EAB2EB /* Models */,
 				1DECE3502AF39B3B000CAB7F /* ContentView.swift */,
-				1DECE3802AF3BA94000CAB7F /* WebView.swift */,
 				1DEA25B92AF4F2A4000A728E /* GalleryView.swift */,
+				1DECE3802AF3BA94000CAB7F /* WebView.swift */,
+				1DF102BE2AFCF7590007D332 /* ImagePicker.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				1DECE3832AF3ECF4000CAB7F /* Extensions.swift in Sources */,
 				1DECB6982AFB9B0600EAB2EB /* Result.swift in Sources */,
 				1DECE37F2AF3AEB0000CAB7F /* ImgurRepository.swift in Sources */,
+				1DF102BF2AFCF7590007D332 /* ImagePicker.swift in Sources */,
 				1DECE37B2AF3AC32000CAB7F /* ImageRepository.swift in Sources */,
 				1DECB69F2AFBA8DA00EAB2EB /* LoginViewModel.swift in Sources */,
 				1DECB69D2AFBA74D00EAB2EB /* ImageUIItem.swift in Sources */,
@@ -533,6 +537,7 @@
 				DEVELOPMENT_TEAM = X82WFAUDY5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take picture";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -563,6 +568,7 @@
 				DEVELOPMENT_TEAM = X82WFAUDY5;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Take picture";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
