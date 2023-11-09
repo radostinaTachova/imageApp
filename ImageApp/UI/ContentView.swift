@@ -14,43 +14,42 @@ struct ContentView: View {
     @ObservedObject var loginViewModel: LoginViewModel
     
     //MARK: temporal
-    @State private var isPresentWebView = true
-    
-    //MARK: temporal
     let url = "https://api.imgur.com/oauth2/authorize?client_id=3a6a531dc50e73b&response_type=token&state=APPLICATION_STATE"
 
     
     var body: some View {
         //TODO: nevigation
         VStack {
-            Text("ContentView")
-            Text("Hola \(loginViewModel.account?.userName ?? "sin user")")
-            
+            getLoginOrGallery
             Spacer()
             
             Button("Log out", action: {
                 loginViewModel.logOut()
             })
             
-            Button("GET IMAGES: TEST") {
+        }.onAppear {
+            if loginViewModel.isLoggedIn {
                 viewModel.getImages()
             }
-            
-        }.sheet(isPresented: $loginViewModel.showLoginView) {
-            //Login
-            WebView(url: URL(string:url)!) { loginURL in
-                print("RTC = isLoggin \(loginURL)")
-                
-                loginViewModel.saveAccount(loginURL)
-                
-            }
-                    .ignoresSafeArea()
-                    .navigationTitle("Login")
-                    .navigationBarTitleDisplayMode(.inline)
-        }.onAppear {
-            loginViewModel.checkLogin()
         }
     }
+    
+    
+    @ViewBuilder
+    var getLoginOrGallery: some View  {
+        switch loginViewModel.isLoggedIn {
+        case false:
+            WebView(url: URL(string:url)!) { loginURL in
+                print("RTC = isLoggin \(loginURL)")
+                loginViewModel.saveAccount(loginURL)
+            }.ignoresSafeArea()
+        default:
+            GalleryView(images: viewModel.images)
+        }
+    }
+    
+    
+    
 }
 
 #Preview {
