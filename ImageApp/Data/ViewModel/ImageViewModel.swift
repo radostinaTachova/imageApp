@@ -6,44 +6,33 @@
 //
 
 import Foundation
+import Combine
 
 
 class ImageViewModel: ObservableObject {
     
     private var respository: ImageRepository
+        
+    @Published var images: [ImageUIItem] = []
     
-    private var loginRepository: LoginRepository
+    var cancellableSet = Set<AnyCancellable>()
     
-    @Published var account: Account? = nil
-    
-    @Published var showLoginView: Bool = true
-    
-    init(_ imageRepository: ImageRepository, _ loginRepository: LoginRepository) {
+    init(_ imageRepository: ImageRepository) {
         self.respository = imageRepository
-        self.loginRepository = loginRepository
-    }
-    
-    //MARK: login 
-    func saveAccount(_ urlString: String) {
-        account = urlString.getAccount()
-        showLoginView = false
-        if let data = account?.access_token.data(using: .utf8) {
-            print("RTC = keychain.save access_token")
-            let success = KeyChainHelper.save(data: data, service: "access_token")
-            print("RTC = keychain.save access_token = \(success)")
-
-        }
-    }
-    
-    func checkLogin()  {
-        showLoginView = !loginRepository.isLoggedIn()
-    }
-    
-    func logOut() {
-        showLoginView = loginRepository.logOut()
     }
     
     
+    //MARK: - Images
+    
+    func getImages() {
+        let _ = respository.getImages()
+            .sink(receiveCompletion: {
+                print("RTC = received completion \($0)")
+            }, receiveValue: { [unowned self] images in
+                self.images = images
+            })
+            .store(in: &cancellableSet)
+    }
     
     
 }

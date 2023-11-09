@@ -29,5 +29,13 @@ final class ExtensionsTests: XCTestCase {
         XCTAssertEqual(account?.account_id, account_id)
     }
     
+    func testImageItemToImageUIItem() throws {
+        let imageItem = ImageItem(id: "123", title: "Title", description: nil, datetime: 12, type: "type", animated: false, width: 1, height: 120, size: 120, views: 1, bandwidth: 1, vote: nil, favorite: false, nsfw: nil, section: nil, accountURL: "", accountID: 12, isAd: false, inMostViral: false, hasSound: false, tags: [], adType: 1, adURL: "", edited: "", inGallery: true, deletehash: "", name: "image", link: "link")
+        let uimodel = imageItem.toUIModel()
+        
+        XCTAssertEqual(uimodel.id, imageItem.id)
+        XCTAssertEqual(uimodel.tittle, imageItem.title)
+        XCTAssertEqual(uimodel.url, imageItem.link)
+    }
     
 }
