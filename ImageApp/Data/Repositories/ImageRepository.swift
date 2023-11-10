@@ -9,8 +9,6 @@ import Foundation
 import Combine
 
 protocol ImageRepository {
-    
     func getImages() -> AnyPublisher<[ImageUIItem], Error>
-  
-    
+    func uploadImage(base64: String) -> AnyPublisher<ImageUIItem, Error>
 }

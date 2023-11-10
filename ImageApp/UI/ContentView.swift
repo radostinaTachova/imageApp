@@ -29,7 +29,13 @@ struct ContentView: View {
             if loginViewModel.isLoggedIn {
                 viewModel.getImages()
             }
-        }.pickerSheet(isPresented: $showSheet, source: source, image: self.$image)
+        }
+        .pickerSheet(isPresented: $showSheet, source: source, image: self.$image)
+        .onChange(of: image, perform: { value in
+            if let imageBase64 = value.base64 {
+                viewModel.uploadImage(base64: imageBase64)
+            }
+        })
     }
     
     var buttonsPrueba: some View {
