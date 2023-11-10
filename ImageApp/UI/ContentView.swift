@@ -16,38 +16,41 @@ struct ContentView: View {
     //MARK: temporal
     let url = "https://api.imgur.com/oauth2/authorize?client_id=3a6a531dc50e73b&response_type=token&state=APPLICATION_STATE"
 
-    //TODO: temporal, make a imagepicker wrapper view
+    //TODO: temporal
     @State private var image = UIImage()
     @State private var showSheet = false
-    @State private var source: UIImagePickerController.SourceType = .photoLibrary
+    @State private var source: SourceType = .opencamera
     
     var body: some View {
-        //TODO: nevigation
         VStack {
             getLoginOrGallery
+            Spacer()
         }.onAppear {
             if loginViewModel.isLoggedIn {
                 viewModel.getImages()
             }
-        }.sheet(isPresented: $showSheet, content: {
-            ImagePicker(sourceType: $source, selectedImage: self.$image)
-        })
+        }.pickerSheet(isPresented: $showSheet, source: source, image: self.$image)
     }
     
-    var buttons: some View {
+    var buttonsPrueba: some View {
         HStack {
-            Button("Importar Imagen") {
-                print("RTC = importar imagen")
-                source = .photoLibrary
-                showSheet = true
+            if #available(iOS 16, *) {
+                ImageLibraryPickeriOS16(image: self.$image)
+            } else {
+                Button("Importar Imagen") {
+                    print("RTC = iOS, importar")
+                    self.source = SourceType.photolibrary
+                    showSheet = true
+                }
             }
             Spacer()
-            Button("Cámara") {
-                print("RTC = camera")
-                source = .camera
+            Button(action: {
+                print("RTC = iOS, camera")
+                self.source = SourceType.opencamera
                 showSheet = true
-                
-            }
+            }, label: {
+                Text("Camera")
+            })
         }
     }
     
@@ -66,7 +69,7 @@ struct ContentView: View {
                 Button("Log out", action: {
                     loginViewModel.logOut()
                 })
-                buttons.padding()
+                buttonsPrueba
             }
         }
     }
