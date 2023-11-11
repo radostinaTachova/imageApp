@@ -24,7 +24,6 @@ struct ImgurRepository: ImageRepository {
         guard let userName = String(data: userNameData, encoding: .utf8) else {
             return AnyPublisher(Fail<[ImageUIItem], CustomError>(error: CustomError.generalError(errorMessage: "df"))) //TODO: handle the errors or change the flow
         }
-        print("RTC = getImages with userName = \(userName)")
         
         let url = baseURL + "account/\(userName)/images"
         let request = RequestWrapper(url: url, withAccessToken: true)

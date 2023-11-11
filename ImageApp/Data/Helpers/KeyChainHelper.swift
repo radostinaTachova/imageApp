@@ -18,12 +18,6 @@ class KeyChainHelper {
             kSecValueData as String: data
         ]
         let status = SecItemAdd(query as CFDictionary, nil)
-
-        //TODO: remove
-        if status == errSecDuplicateItem {
-            print("RTC = duplicate item")
-        }
-        
         return status == errSecSuccess
     }
     

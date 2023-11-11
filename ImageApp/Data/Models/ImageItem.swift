@@ -43,37 +43,3 @@ struct ImageItem: Codable {
         case deletehash, name, link
     }
 }
-
-//struct ImageItem: Codable {
-//    let id: String
-//    let title, description: String?
-//    let datetime: Int
-//    let type: String
-//    let animated: Bool
-//    let width, height, size, views: Int
-//    let bandwidth: Int
-//    let vote: String?
-//    let favorite: Bool
-//    let nsfw, section, accountURL: String?
-//    let accountID: Int
-//    let isAd, inMostViral: Bool
-//    let tags: [String]
-//    let adType: Int
-//    let adURL: String
-//    let inGallery: Bool
-//    let deletehash, name: String
-//    let link: String
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id, title, description, datetime, type, animated, width, height, size, views, bandwidth, vote, favorite, nsfw, section
-//        case accountURL = "account_url"
-//        case accountID = "account_id"
-//        case isAd = "is_ad"
-//        case inMostViral = "in_most_viral"
-//        case tags
-//        case adType = "ad_type"
-//        case adURL = "ad_url"
-//        case inGallery = "in_gallery"
-//        case deletehash, name, link
-//    }
-//}

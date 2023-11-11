@@ -10,4 +10,5 @@ import Foundation
 protocol LoginRepository {
     func isLoggedIn() -> Bool
     func logOut() -> Bool
+    func logIn(withAccount account: Account) -> Bool
 }

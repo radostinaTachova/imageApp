@@ -19,11 +19,11 @@ struct ContentView: View {
     
     var body: some View {
         VStack {
-            getLoginOrGallery
+            loginOrGallery
             Spacer()
         }.onAppear {
             if loginViewModel.isLoggedIn {
-                viewModel.getImages()
+                viewModel.updateImages()
             }
         }
         .pickerSheet(isPresented: $showSheet, source: source, image: self.$image)
@@ -31,17 +31,17 @@ struct ContentView: View {
             if let imageBase64 = value.base64 {
                 viewModel.uploadImage(base64: imageBase64)
             }
-        }).errorAlert(error: $viewModel.error)
+        })
+        .errorAlert(error: $viewModel.error)
         .errorAlert(error: $loginViewModel.error)
-                  
     }
+    
     
     var buttons: some View {
         HStack {
             if #available(iOS 16, *) {
                 ImageLibraryPickeriOS16(image: self.$image)
                     .primaryButton()
-
             } else {
                 Button(action: {
                     self.source = SourceType.photolibrary
@@ -88,7 +88,7 @@ struct ContentView: View {
     }
     
     @ViewBuilder
-    var getLoginOrGallery: some View  {
+    var loginOrGallery: some View  {
         switch loginViewModel.isLoggedIn {
         case false:
             WebView(url: URL(string: Bundle.loginUrl)!) { loginURL in

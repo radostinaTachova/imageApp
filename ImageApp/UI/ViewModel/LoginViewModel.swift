@@ -20,9 +20,7 @@ class LoginViewModel: ObservableObject {
         checkLogin()
     }
     
-    
-    //MARK: - login
-    
+        
     private func checkLogin()  {
         isLoggedIn = loginRepository.isLoggedIn()
     }
@@ -33,19 +31,10 @@ class LoginViewModel: ObservableObject {
             error = CustomError.login(errorMessage: "Error en el login")
             return
         }
-        
         let account = urlString.getAccount()
-        //TODO: think about create a CredentialsManager
-        if let data = account?.access_token.data(using: .utf8) {
-            print("RTC = keychain.save access_token")
-            let success = KeyChainHelper.save(data: data, service: "access_token")
-            print("RTC = keychain.save access_token = \(success)")
+        if let account {
+            isLoggedIn = loginRepository.logIn(withAccount: account)
         }
-        if let userName = account?.userName.data(using: .utf8) {
-            let success = KeyChainHelper.save(data: userName, service: "userName")
-            print("RTC = keychain.save userName = \(success)") //TODO: check success=false but is working
-        }
-        isLoggedIn = true
     }
     
     func logOut() {

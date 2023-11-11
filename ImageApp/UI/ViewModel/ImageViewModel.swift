@@ -22,15 +22,10 @@ class ImageViewModel: ObservableObject {
     init(_ imageRepository: ImageRepository) {
         self.repository = imageRepository
     }
-    
-    
-    //MARK: - Images
-    
-    func getImages() {
+        
+    func updateImages() {
         let _ = repository.getImages()
             .sink(receiveCompletion: { [unowned self] completion in
-                print("RTC = received completion \(completion)")
-                //TODO: get the error
                 switch completion {
                 case .finished: break
                 case .failure(let error): 
@@ -46,14 +41,12 @@ class ImageViewModel: ObservableObject {
     func uploadImage(base64: String) {
         let _ = repository.uploadImage(base64: base64)
             .sink(receiveCompletion: { [unowned self] completion in
-                print("RTC = uploadImage received completion \(completion)")
                 switch completion {
                 case .finished: break
                 case .failure(let error):
                     self.error = error
                 }
             }, receiveValue: { [unowned self] upladedImage in
-                print("RTC = uploadImage = success ")
                 self.images.append(upladedImage)
             })
             .store(in: &cancellableSet)
@@ -75,7 +68,6 @@ class ImageViewModel: ObservableObject {
                 if result {
                     self.images.removeAll(where: { $0.id == image.id})
                 }
-                
             })
             .store(in: &cancellableSet)
     }
