@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 extension String {
     
@@ -63,12 +64,9 @@ extension String {
     
 }
 
-
-//MARK: Mapper
-
 extension ImageItem {
     func toUIModel() -> ImageUIItem {
-        return ImageUIItem(id: self.id, url: self.link, tittle: self.title ?? "Sin título")
+        return ImageUIItem(id: self.id, url: self.link, title: self.title ?? "Sin título", deleteHash: self.deletehash)
     }
 }
 
@@ -77,3 +75,30 @@ extension UIImage {
         self.jpegData(compressionQuality: 1)?.base64EncodedString()
     }
 }
+
+extension String {
+    var isLogInUrl: Bool {
+        let urlToMatch = "https://imageapp.com"
+        return self.contains(urlToMatch)
+    }
+}
+
+extension Bundle {
+    static var loginUrl: String {
+        let clientId = Bundle.main.object(forInfoDictionaryKey: "client_id")
+        return "https://api.imgur.com/oauth2/authorize?client_id=\(clientId ?? "")&response_type=token&state=APPLICATION_STATE"
+    }
+}
+
+extension View {
+    func errorAlert(error: Binding<CustomError?>, buttonTitle: String = "OK") -> some View {
+        return alert(isPresented: .constant(error.wrappedValue != nil), error: error.wrappedValue ) { _ in
+                Button(buttonTitle) {
+                    error.wrappedValue = nil
+                }
+            } message: { error in
+                Text(error.errorDescription ?? "Unknown error")
+            }
+        }
+}
+

@@ -10,5 +10,6 @@ import Foundation
 struct ImageUIItem: Identifiable {
     let id: String
     let url: String
-    let tittle: String
+    let title: String
+    let deleteHash: String?
 }

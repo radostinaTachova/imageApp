@@ -29,6 +29,9 @@ struct RequestWrapper {
         return request
     }
     
+    mutating func setDeleteRequest() {
+        request.httpMethod = "DELETE"
+    }
     
     mutating func addBodyForm(with name: String, value: String) {
         let boundary = "Boundary-\(UUID().uuidString)"
