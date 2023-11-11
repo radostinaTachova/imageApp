@@ -13,7 +13,7 @@ struct WebView: UIViewRepresentable {
    
     let url: URL
     
-    let loginURL: (String) -> () //TODO:
+    let loginURL: (String?) -> ()
 
     func makeUIView(context: Context) -> WKWebView {
         let wKWebView = WKWebView()
@@ -32,26 +32,33 @@ struct WebView: UIViewRepresentable {
     
     //
     class WebViewCoordinator: NSObject, WKNavigationDelegate {
-            var parent: WebView
-            
-            init(_ parent: WebView) {
-                self.parent = parent
-            }
-            
-            func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-                let urlToMatch = "https://imageapp.com"
-                //TODO: add extension to check
-                if let urlStr = navigationAction.request.url?.absoluteString {
-                    print("RTC = webview coordinator = \(urlStr)")
-                   
-                    
-                    if urlStr.contains(urlToMatch) {
-                        print("RTC = login YESS")
-                        parent.loginURL(urlStr)
-                    }
-                }
-                decisionHandler(.allow)
-            }
-            
+        var parent: WebView
+        
+        init(_ parent: WebView) {
+            self.parent = parent
         }
+        
+        func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+            if let urlStr = navigationAction.request.url?.absoluteString {
+                print("RTC = webview coordinator = \(urlStr)")
+                if urlStr.isLogInUrl {
+                    print("RTC = login YESS")
+                    parent.loginURL(urlStr)
+                }
+            }
+            decisionHandler(.allow)
+        }
+        
+        func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse,
+                     decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+
+            if let response = navigationResponse.response as? HTTPURLResponse {
+                print("RTC login = \(response.statusCode)")
+                if response.statusCode != 200 {
+                    parent.loginURL(nil)
+                }
+            }
+            decisionHandler(.allow)
+        }
+    }
 }

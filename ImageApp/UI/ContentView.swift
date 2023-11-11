@@ -13,10 +13,6 @@ struct ContentView: View {
     
     @ObservedObject var loginViewModel: LoginViewModel
     
-    //MARK: temporal
-    let url = "https://api.imgur.com/oauth2/authorize?client_id=3a6a531dc50e73b&response_type=token&state=APPLICATION_STATE"
-
-    //TODO: temporal
     @State private var image = UIImage()
     @State private var showSheet = false
     @State private var source: SourceType = .opencamera
@@ -35,7 +31,9 @@ struct ContentView: View {
             if let imageBase64 = value.base64 {
                 viewModel.uploadImage(base64: imageBase64)
             }
-        })
+        }).errorAlert(error: $viewModel.error)
+        .errorAlert(error: $loginViewModel.error)
+                  
     }
     
     var buttons: some View {
@@ -93,15 +91,16 @@ struct ContentView: View {
     var getLoginOrGallery: some View  {
         switch loginViewModel.isLoggedIn {
         case false:
-            WebView(url: URL(string:url)!) { loginURL in
-                print("RTC = isLoggin \(loginURL)")
+            WebView(url: URL(string: Bundle.loginUrl)!) { loginURL in
                 loginViewModel.saveAccount(loginURL)
             }.ignoresSafeArea()
         default:
             VStack {
                 logoutButton
               
-                GalleryView(images: viewModel.images)
+                GalleryView(images: viewModel.images) { image in
+                    viewModel.deleteImage(image)
+                }
                
                 buttons
             }

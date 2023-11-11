@@ -11,9 +11,9 @@ class LoginViewModel: ObservableObject {
     
     private var loginRepository: LoginRepository
 
-    @Published var account: Account? = nil
-    
     @Published var isLoggedIn: Bool = false
+    
+    @Published var error: CustomError? = nil
     
     init(_ loginRepository: LoginRepository) {
         self.loginRepository = loginRepository
@@ -27,8 +27,14 @@ class LoginViewModel: ObservableObject {
         isLoggedIn = loginRepository.isLoggedIn()
     }
     
-    func saveAccount(_ urlString: String) {
-        account = urlString.getAccount()
+    func saveAccount(_ urlString: String?) {
+        guard let urlString else {
+            isLoggedIn = false
+            error = CustomError.login(errorMessage: "Error en el login")
+            return
+        }
+        
+        let account = urlString.getAccount()
         //TODO: think about create a CredentialsManager
         if let data = account?.access_token.data(using: .utf8) {
             print("RTC = keychain.save access_token")
