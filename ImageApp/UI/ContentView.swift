@@ -38,28 +38,56 @@ struct ContentView: View {
         })
     }
     
-    var buttonsPrueba: some View {
+    var buttons: some View {
         HStack {
             if #available(iOS 16, *) {
                 ImageLibraryPickeriOS16(image: self.$image)
+                    .primaryButton()
+
             } else {
-                Button("Importar Imagen") {
-                    print("RTC = iOS, importar")
+                Button(action: {
                     self.source = SourceType.photolibrary
                     showSheet = true
-                }
+                }, label: {
+                    Label(
+                        title: { Text("Galería") },
+                        icon: { Image(systemName: "photo.on.rectangle.angled") }
+                    )
+                    .primaryButton()
+
+                })
+                
             }
-            Spacer()
             Button(action: {
-                print("RTC = iOS, camera")
                 self.source = SourceType.opencamera
                 showSheet = true
             }, label: {
-                Text("Camera")
+                Label(
+                    title: { Text("Cámara") },
+                    icon: { Image(systemName: "camera") }
+                )
+                .primaryButton()
+
             })
         }
     }
     
+    var logoutButton: some View {
+        HStack {
+            Spacer()
+            Button(action: {
+                loginViewModel.logOut()
+            }, label: {
+                Label(
+                    title: { Text("Log out") },
+                    icon: { Image(systemName: "rectangle.portrait.and.arrow.right") }
+                )
+                .padding()
+                .foregroundColor(Color("mainColor", bundle: nil))
+                .padding(.trailing)
+            })
+        }
+    }
     
     @ViewBuilder
     var getLoginOrGallery: some View  {
@@ -71,11 +99,11 @@ struct ContentView: View {
             }.ignoresSafeArea()
         default:
             VStack {
+                logoutButton
+              
                 GalleryView(images: viewModel.images)
-                Button("Log out", action: {
-                    loginViewModel.logOut()
-                })
-                buttonsPrueba
+               
+                buttons
             }
         }
     }
@@ -86,3 +114,5 @@ struct ContentView: View {
 #Preview {
     ContentView(viewModel: ImageViewModel(ImgurRepository()), loginViewModel: LoginViewModel(LoginRepositoryImpl()))
 }
+
+

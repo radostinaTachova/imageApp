@@ -28,7 +28,6 @@ struct GalleryView: View {
             imagen.resizable()
                 .scaledToFit()
                 .clipShape(RoundedRectangle(cornerRadius: 20))
-                .shadow(radius: 15)
                 .padding(5)
                 .frame(height: 150)
             
