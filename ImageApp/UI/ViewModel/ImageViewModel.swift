@@ -34,5 +34,15 @@ class ImageViewModel: ObservableObject {
             .store(in: &cancellableSet)
     }
     
+    func uploadImage(base64: String) {
+        let _ = respository.uploadImage(base64: base64)
+            .sink(receiveCompletion: {
+                print("RTC = uploadImage received completion \($0)")
+            }, receiveValue: { [unowned self] upladedImage in
+                print("RTC = uploadImage = success ")
+                self.images.append(upladedImage)
+            })
+            .store(in: &cancellableSet)
+    }
     
 }

@@ -14,9 +14,8 @@ struct GalleryView: View {
     var body: some View {
         
         ScrollView {
-            Text("Galería")
             //TODO: check values and move them to constats
-            LazyVGrid(columns: [GridItem(.adaptive(minimum: 150, maximum: 180))], content: {
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 100, maximum: 120))], spacing: 0, content: {
                 ForEach(images) { image in
                     getImageView(withUrl: image.url)
                 }
@@ -28,8 +27,9 @@ struct GalleryView: View {
         AsyncImage(url: URL(string: url)) { imagen in
             imagen.resizable()
                 .scaledToFit()
-                .clipShape(RoundedRectangle(cornerRadius: 10))
-                .shadow(radius: 15)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .padding(5)
+                .frame(height: 150)
             
         } placeholder: {
             ProgressView()

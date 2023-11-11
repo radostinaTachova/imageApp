@@ -16,24 +16,78 @@ struct ContentView: View {
     //MARK: temporal
     let url = "https://api.imgur.com/oauth2/authorize?client_id=3a6a531dc50e73b&response_type=token&state=APPLICATION_STATE"
 
+    //TODO: temporal
+    @State private var image = UIImage()
+    @State private var showSheet = false
+    @State private var source: SourceType = .opencamera
     
     var body: some View {
-        //TODO: nevigation
         VStack {
             getLoginOrGallery
             Spacer()
-            
-            Button("Log out", action: {
-                loginViewModel.logOut()
-            })
-            
         }.onAppear {
             if loginViewModel.isLoggedIn {
                 viewModel.getImages()
             }
         }
+        .pickerSheet(isPresented: $showSheet, source: source, image: self.$image)
+        .onChange(of: image, perform: { value in
+            if let imageBase64 = value.base64 {
+                viewModel.uploadImage(base64: imageBase64)
+            }
+        })
     }
     
+    var buttons: some View {
+        HStack {
+            if #available(iOS 16, *) {
+                ImageLibraryPickeriOS16(image: self.$image)
+                    .primaryButton()
+
+            } else {
+                Button(action: {
+                    self.source = SourceType.photolibrary
+                    showSheet = true
+                }, label: {
+                    Label(
+                        title: { Text("Galería") },
+                        icon: { Image(systemName: "photo.on.rectangle.angled") }
+                    )
+                    .primaryButton()
+
+                })
+                
+            }
+            Button(action: {
+                self.source = SourceType.opencamera
+                showSheet = true
+            }, label: {
+                Label(
+                    title: { Text("Cámara") },
+                    icon: { Image(systemName: "camera") }
+                )
+                .primaryButton()
+
+            })
+        }
+    }
+    
+    var logoutButton: some View {
+        HStack {
+            Spacer()
+            Button(action: {
+                loginViewModel.logOut()
+            }, label: {
+                Label(
+                    title: { Text("Log out") },
+                    icon: { Image(systemName: "rectangle.portrait.and.arrow.right") }
+                )
+                .padding()
+                .foregroundColor(Color("mainColor", bundle: nil))
+                .padding(.trailing)
+            })
+        }
+    }
     
     @ViewBuilder
     var getLoginOrGallery: some View  {
@@ -44,14 +98,21 @@ struct ContentView: View {
                 loginViewModel.saveAccount(loginURL)
             }.ignoresSafeArea()
         default:
-            GalleryView(images: viewModel.images)
+            VStack {
+                logoutButton
+              
+                GalleryView(images: viewModel.images)
+               
+                buttons
+            }
         }
     }
-    
-    
-    
 }
+
+
 
 #Preview {
     ContentView(viewModel: ImageViewModel(ImgurRepository()), loginViewModel: LoginViewModel(LoginRepositoryImpl()))
 }
+
+

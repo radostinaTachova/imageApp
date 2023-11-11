@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - Result
 struct Result<Item: Codable>: Codable {
-    let data: [Item]
+    let data: Item
     let success: Bool
     let status: Int
 }

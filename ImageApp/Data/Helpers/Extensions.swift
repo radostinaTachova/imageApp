@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 extension String {
     
@@ -68,5 +69,11 @@ extension String {
 extension ImageItem {
     func toUIModel() -> ImageUIItem {
         return ImageUIItem(id: self.id, url: self.link, tittle: self.title ?? "Sin título")
+    }
+}
+
+extension UIImage {
+    var base64: String? {
+        self.jpegData(compressionQuality: 1)?.base64EncodedString()
     }
 }
