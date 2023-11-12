@@ -38,6 +38,15 @@ Flujo general:
 
 ## Implementación, decisiones, retos
 
+* **Stack tecnológico**
+  * Swift
+  * SwiftUI
+  * Combine
+  * KeyChain
+  * URLSession
+  * XCTest
+  * Clean Architecture + MVVM
+
 * **Login**
   
     Usando el webView he aprendido el protocolo UIViewRepresentable para integrar vistas basadas en UIKit. Por otro lado, ya que la manera correcta de hacer el login en nativo sería usando la api de Imgur he tenido dudas al principio de cómo hacerlo lo mejor posible. Desde la web de imgur he cambiado la url al hacer login para así comprobar esta url en la app y que no haya dudas. Al recibir esta url se parsea el account y se guarda el accesstoken en keyChain.
@@ -57,7 +66,8 @@ Con el webView solo funciona el login con imgur, no se puede usar Google, etc.
 * **Tests y DI**
   
     He implementado un par de tests sencillos de las extensiones y una clase para testar el viewmodel de las imágenes. En este último caso he creado un repositorio fake que me devuelve el camino sin errores y en los tests he usado este repositorio para crear el viewModel. Para facilitar estos tests he usado injeccción de dependecias y cada repositorio tiene un protocolo (principio SOLID).
-Había pensado en usar [Factory](https://github.com/hmlongco/Factory) para la injección de dependecias, porque me gusta mucho su sencillez y lo había usado para mi app de prueba [myiOSBeerApp](https://github.com/radostinaTachova/myiOSBeerApp), pero al empezar la app sin esta librería finalmente por tiempo he decidido dejarlo así (usando los inicializadores). El DI en iOS es un tema que me sigue creando dudas, no acabo de entender cuál es la práctica general en el mundo laboral. En Android es A o B y como google te recomienda qué hacer la decisión se toma sola.
+
+  Había pensado en usar [Factory](https://github.com/hmlongco/Factory) para la injección de dependecias, porque me gusta mucho su sencillez y lo había usado para mi app de prueba [myiOSBeerApp](https://github.com/radostinaTachova/myiOSBeerApp), pero al empezar la app sin esta librería finalmente por tiempo he decidido dejarlo así (usando los inicializadores). El DI en iOS es un tema que me sigue creando dudas, no acabo de entender cuál es la práctica general en el mundo laboral. En Android es A o B y como google te recomienda qué hacer la decisión se toma sola.
 
 * **API Imgur**
 
