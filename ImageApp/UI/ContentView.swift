@@ -21,10 +21,6 @@ struct ContentView: View {
         VStack {
             loginOrGallery
             Spacer()
-        }.onAppear {
-            if loginViewModel.isLoggedIn {
-                viewModel.updateImages()
-            }
         }
         .pickerSheet(isPresented: $showSheet, source: source, image: self.$image)
         .onChange(of: image, perform: { value in
@@ -100,7 +96,9 @@ struct ContentView: View {
               
                 GalleryView(images: viewModel.images) { image in
                     viewModel.deleteImage(image)
-                }
+                }.onAppear(perform: {
+                    viewModel.updateImages()
+                })
                
                 buttons
             }
