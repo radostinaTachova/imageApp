@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D640F262B00CDAB0095FFA5 /* FakeImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D640F252B00CDAB0095FFA5 /* FakeImageRepository.swift */; };
+		1D640F282B00D0FB0095FFA5 /* ImageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D640F272B00D0FB0095FFA5 /* ImageViewModelTests.swift */; };
 		1DC38F872AFF869B005D1E07 /* PrimaryButtonModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC38F862AFF869B005D1E07 /* PrimaryButtonModifier.swift */; };
 		1DC38F892AFF8C88005D1E07 /* RequestWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC38F882AFF8C88005D1E07 /* RequestWrapper.swift */; };
 		1DC38F8D2AFFE0BB005D1E07 /* CustomError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DC38F8C2AFFE0BB005D1E07 /* CustomError.swift */; };
@@ -55,6 +57,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D640F252B00CDAB0095FFA5 /* FakeImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeImageRepository.swift; sourceTree = "<group>"; };
+		1D640F272B00D0FB0095FFA5 /* ImageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModelTests.swift; sourceTree = "<group>"; };
 		1DC38F862AFF869B005D1E07 /* PrimaryButtonModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButtonModifier.swift; sourceTree = "<group>"; };
 		1DC38F882AFF8C88005D1E07 /* RequestWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestWrapper.swift; sourceTree = "<group>"; };
 		1DC38F8C2AFFE0BB005D1E07 /* CustomError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomError.swift; sourceTree = "<group>"; };
@@ -225,6 +229,8 @@
 			children = (
 				1DECE35F2AF39B3C000CAB7F /* ImageAppTests.swift */,
 				1DECE3862AF3F15A000CAB7F /* ExtensionsTests.swift */,
+				1D640F252B00CDAB0095FFA5 /* FakeImageRepository.swift */,
+				1D640F272B00D0FB0095FFA5 /* ImageViewModelTests.swift */,
 			);
 			path = ImageAppTests;
 			sourceTree = "<group>";
@@ -422,6 +428,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1DECE3602AF39B3C000CAB7F /* ImageAppTests.swift in Sources */,
+				1D640F262B00CDAB0095FFA5 /* FakeImageRepository.swift in Sources */,
+				1D640F282B00D0FB0095FFA5 /* ImageViewModelTests.swift in Sources */,
 				1DECE3872AF3F15A000CAB7F /* ExtensionsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
