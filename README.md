@@ -3,6 +3,12 @@
 App sencilla que integra la Api de [Imgur](https://apidocs.imgur.com/)
 
 
+
+https://github.com/radostinaTachova/imageApp/assets/115720064/d23c9d71-fabc-47dd-bb48-f7324a4222e1
+
+
+
+
 ### Funcionalidades disponibles
 
 * Login
