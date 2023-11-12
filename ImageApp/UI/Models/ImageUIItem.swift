@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ImageUIItem: Identifiable {
+struct ImageUIItem: Identifiable, Equatable {
     let id: String
     let url: String
     let title: String

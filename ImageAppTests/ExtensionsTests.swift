@@ -34,7 +34,7 @@ final class ExtensionsTests: XCTestCase {
         let uimodel = imageItem.toUIModel()
         
         XCTAssertEqual(uimodel.id, imageItem.id)
-        XCTAssertEqual(uimodel.tittle, imageItem.title)
+        XCTAssertEqual(uimodel.title, imageItem.title)
         XCTAssertEqual(uimodel.url, imageItem.link)
     }
     
